@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سیستم مدیریت پروژه پیشرفته</title>
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/2.29.3/index.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <h1>🚀 سیستم مدیریت پروژه پیشرفته</h1>
+            <p>مدیریت هوشمند پروژه‌های فناوری با تایم‌لاین تعاملی</p>
+        </header>
+
+        <!-- Statistics Cards -->
+        <section class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalProjects">0</div>
+                    <div class="stat-label">کل پروژه‌ها</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="activeProjects">0</div>
+                    <div class="stat-label">پروژه‌های فعال</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="completedProjects">0</div>
+                    <div class="stat-label">پروژه‌های تکمیل شده</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="overallProgress">0%</div>
+                    <div class="stat-label">پیشرفت کلی</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Controls Section -->
+        <section class="controls-section">
+            <div class="controls">
+                <div class="control-group">
+                    <label>Google Sheets URL:</label>
+                    <input type="url" id="sheetsUrl" placeholder="https://docs.google.com/spreadsheets/d/...">
+                    <button onclick="dataManager.loadFromSheets()">بارگذاری از گوگل شیت</button>
+                </div>
+                
+                <div class="control-group">
+                    <label>فیلتر وضعیت:</label>
+                    <select id="statusFilter" onchange="projectManager.filterProjects()">
+                        <option value="">همه</option>
+                        <option value="active">فعال</option>
+                        <option value="completed">تکمیل شده</option>
+                        <option value="pending">در انتظار</option>
+                    </select>
+                    
+                    <label>نمای زمانی:</label>
+                    <select id="timeView" onchange="chartManager.updateTimeView()">
+                        <option value="monthly">ماهانه</option>
+                        <option value="weekly">هفتگی</option>
+                        <option value="daily">روزانه</option>
+                    </select>
+                    
+                    <button onclick="projectManager.openAddProjectModal()">افزودن پروژه</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chart Section -->
+        <section class="chart-section">
+            <div class="chart-container">
+                <h2>نمودار گانت پروژه‌ها</h2>
+                <canvas id="ganttChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section class="timeline-section">
+            <div class="timeline-container">
+                <h2>تایم‌لاین پروژه‌ها</h2>
+                <div id="timelineContainer">
+                    <div class="loading">در حال بارگذاری پروژه‌ها...</div>
+                </div>
+                
+                <div class="export-buttons">
+                    <button class="btn-export" onclick="exportManager.exportToCSV()">📊 خروجی CSV</button>
+                    <button class="btn-export" onclick="exportManager.exportToJSON()">📄 خروجی JSON</button>
+                    <button class="btn-export" onclick="exportManager.generateReport()">📋 گزارش کامل</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal Container -->
+    <div id="modalContainer"></div>
+
+    <!-- JavaScript Modules -->
+    <script src="assets/js/utils.js"></script>
+    <script src="assets/js/dataManager.js"></script>
+    <script src="assets/js/chartManager.js"></script>
+    <script src="assets/js/projectManager.js"></script>
+    <script src="assets/js/exportManager.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
